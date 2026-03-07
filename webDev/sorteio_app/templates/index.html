@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Sorteio</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+
+<header class="top">
+    <h1>🎉 Sorteio de Participantes</h1>
+</header>
+
+<main class="container">
+ <button onclick="toggleFullscreen()">🖥️ Modo Telão</button>
+    <!-- CADASTRO -->
+    <section class="card">
+        <h2>Cadastrar participante</h2>
+        <form action="/add" method="post" enctype="multipart/form-data">
+            <input type="text" name="name" placeholder="Nome completo" required>
+            <input type="file" name="photo" accept="image/*" required>
+            <button type="submit">Adicionar</button>
+        </form>
+    </section>
+
+    <!-- LISTA -->
+    <section class="card participants-card">
+    <h2>Participantes</h2>
+
+    <div class="participants-scroll">
+        <div class="participants-grid">
+
+            {% for p in participants %}
+            <label class="participant-item">
+                <input
+                    type="checkbox"
+                    name="selected_participants"
+                    value="{{ p.id }}"
+                >
+
+                <img src="{{ p.photo_url }}" alt="{{ p.name }}">
+
+                <div class="participant-info">
+                    <strong>{{ p.name }}</strong>
+                    <small>Pontos: {{ p.points }}</small>
+                </div>
+            </label>
+            {% endfor %}
+
+        </div>
+        <button type="button" id="clearSelectionBtn" class="secondary">
+          Limpar seleção
+        </button>
+    </div>
+    
+</section>
+    <!-- SORTEIO -->
+    <section class="card">
+        <h2>Sorteio</h2>
+        <select id="qty">
+            <option value="1">Sortear 1</option>
+            <option value="2">Sortear 2</option>
+            <option value="3">Sortear 3</option>
+        </select>
+        <button onclick="draw()">Sortear</button>
+
+        <div id="result" class="result"></div>
+    </section>
+
+    <!-- HISTÓRICO -->
+    <section class="card">
+        <h2>Últimos sorteios</h2>
+        <ul class="history">
+            {% for h in history %}
+            <li>
+                {{ h[0] }} — {{ h[1] }}
+            </li>
+            {% endfor %}
+        </ul>
+    </section>
+
+    <section class="card">
+       <h2>🏆 Ranking</h2>
+        <div class="ranking">
+             {% for p in participants | sort(attribute=3, reverse=true) %}
+           <div class="rank-row">
+               <img src="{{ p[2] }}">
+               <span>{{ p[1] }}</span>
+               <strong>{{ p[3] }}</strong>
+           </div>
+          {% endfor %}
+        </div>
+     </section>
+
+
+</main>
+
+<script src="{{ url_for('static', filename='js/app.js') }}"></script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
