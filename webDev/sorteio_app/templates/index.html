@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <title>Sorteio</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/static/css/style.css">
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
@@ -14,7 +14,9 @@
 
 <main class="container">
  <button onclick="toggleFullscreen()">🖥️ Modo Telão</button>
-    <!-- CADASTRO -->
+    
+ 
+ <!-- CADASTRO -->
     <section class="card">
         <h2>Cadastrar participante</h2>
         <form action="/add" method="post" enctype="multipart/form-data">
@@ -55,7 +57,8 @@
     </div>
     
 </section>
-    <!-- SORTEIO -->
+    
+<!-- SORTEIO -->
     <section class="card">
         <h2>Sorteio</h2>
         <select id="qty">
@@ -68,6 +71,7 @@
         <div id="result" class="result"></div>
     </section>
 
+    
     <!-- HISTÓRICO -->
     <section class="card">
         <h2>Últimos sorteios</h2>
@@ -96,7 +100,7 @@
 
 </main>
 
-<script src="{{ url_for('static', filename='js/app.js') }}"></script>
+<script src="app.js"></script>
 </body>
 </html>
 
